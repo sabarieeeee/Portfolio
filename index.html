@@ -416,7 +416,22 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;ba
 .archive-row>*{position:relative;z-index:1}
 .archive-row:hover{transform:none;color:#111;padding-inline:18px}
 .archive-row:hover:before{transform:scaleY(1)}
-.archive-thumb{width:76px;height:76px;border-radius:50%}
+.archive-thumb{width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acid);
+  color: #111;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  transition: background-color 0.35s, color 0.35s;}
+.archive-row:hover .archive-thumb {
+  background: #111;
+  color: var(--acid);
+}
 .cinematic{min-height:145vh}
 .cinematic-inner{min-height:100vh;position:sticky;top:0}
 .cinematic h2{font-size:clamp(76px,14vw,250px);line-height:.78;max-width:1500px}
@@ -824,32 +839,25 @@ gtag('config', 'G-2M6V79H761');
               <span>2025</span>
               <span>7 Minutes</span>
               <span>Will be Available Soon</span>
-              <div class="archive-thumb">
-                <img src="web_assets/archive_01_thumb.webp" alt="Axiom">
-              </div>
+              <div class="archive-thumb">#1</div>
             </div>
             <div class="archive-row" data-preview="web_assets/archive_02_noma.jpg">
               <span>2025</span>
               <span>In Between</span>
               <span>Will be Available Soon</span>
-              <div class="archive-thumb">
-                <img src="web_assets/archive_02_thumb.webp" alt="Noma">
-              </div>
+              <div class="archive-thumb">#2</div>
             </div>
             <div class="archive-row" data-preview="web_assets/archive_03_terrain.jpg">
               <span>2026</span>
               <span>Hope</span>
               <span>Will be Available Soon</span>
-              <div class="archive-thumb">
-                <img src="web_assets/archive_03_thumb.webp" alt="Terrain">
-              </div>
+              <div class="archive-thumb">#3</div>
             </div>
             <div class="archive-row" data-preview="web_assets/archive_04_mono.jpg">
               <span>2027</span>
               <span>Kadhal Kadhai</span>
               <span>Will be Available Soon</span>
-              <div class="archive-thumb">
-                <img src="web_assets/archive_04_thumb.png" alt="Mono">
+              <div class="archive-thumb">#4</div>
               </div>
             </div>
           </div>
@@ -1086,12 +1094,8 @@ gtag('config', 'G-2M6V79H761');
         : null;
       if (lenis) {
         lenis.on('scroll', ScrollTrigger.update);
-        function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-}
+        gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
       }
 
       function animateCounter(el) {
