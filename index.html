@@ -28,7 +28,6 @@
 * { box-sizing: border-box; }
 html {
 scroll-behavior: auto;
-overflow-y: auto;
 }
 body {
 margin: 0;
@@ -36,8 +35,6 @@ background: var(--paper);
 color: var(--ink);
 font-family: Inter, Arial, sans-serif;
 overflow-x: hidden;
-overflow-y: auto;
-overscroll-behavior-y: auto;
 }
 body.is-loading { overflow: hidden; }
 .no-js .preloader { display:none; }
@@ -602,7 +599,7 @@ gtag('config', 'G-2M6V79H761');
               <img src="web_assets/project_01_7_minutes.webp" alt="7 Minutes" class="h-full w-full object-cover">
             </div>
             <div class="project-side">
-              01 / 05
+              01 / 04
               <div class="project-thumb">
                 <img src="web_assets/project_01_thumb.webp" alt="Portrait thumbnail">
               </div>
@@ -622,7 +619,7 @@ gtag('config', 'G-2M6V79H761');
               <img src="web_assets/project_02_in_between.jpg" alt="In Between" class="h-full w-full object-cover">
             </div>
             <div class="project-side">
-              02 / 05
+              02 / 04
               <div class="project-thumb">
                 <img src="web_assets/project_02_thumb.webp" alt="Portrait thumbnail">
               </div>
@@ -642,7 +639,7 @@ gtag('config', 'G-2M6V79H761');
               <img src="web_assets/project_03_hope.webp" alt="Hope" class="h-full w-full object-cover">
             </div>
             <div class="project-side">
-              03 / 05
+              03 / 04
               <div class="project-thumb">
                 <img src="web_assets/project_03_thumb.webp" alt="Portrait thumbnail">
               </div>
@@ -652,11 +649,11 @@ gtag('config', 'G-2M6V79H761');
           <article class="project">
             <div class="project-copy">
               <h3 class="display" style="white-space: nowrap; font-size: clamp(45px, 5.5vw, 90px); width: 100%;">
-                <span style="display:inline;">Kaadhal</span>
+                <span style="display:inline;">Kadhal</span>
                 <span style="display:inline;">Kadhai</span>
               </h3>
               <p>
-                Short Film • Romantic Comedy
+                Short Film • Romantic Emotional
                 <br>
                 2027
               </p>
@@ -666,31 +663,7 @@ gtag('config', 'G-2M6V79H761');
               <img src="web_assets/project_04_kaadhal_kadhai.webp" alt="Kaadhal Kadhai" class="h-full w-full object-cover">
             </div>
             <div class="project-side">
-              04 / 05
-              <div class="project-thumb">
-                <img src="web_assets/project_04_thumb.webp" alt="Portrait thumbnail">
-              </div>
-            </div>
-          </article>
-        </div>
-
-          <article class="project">
-            <div class="project-copy">
-              <h3 class="display" style="white-space: nowrap; font-size: clamp(45px, 5.5vw, 90px); width: 100%;padding-left:30px">
-                <span style="display:inline;">Together</span>
-              </h3>
-              <p style="padding-left: 30px;">
-                Short Film • Romantic Fiction
-                <br>
-                2028
-              </p>
-            </div>
-            
-            <div class="project-media hover-media">
-              <img src="web_assets/project_04_together.webp" alt="Together" class="h-full w-full object-cover">
-            </div>
-            <div class="project-side">
-              05 / 05
+              04 / 04
               <div class="project-thumb">
                 <img src="web_assets/project_04_thumb.webp" alt="Portrait thumbnail">
               </div>
@@ -873,23 +846,13 @@ gtag('config', 'G-2M6V79H761');
             </div>
             <div class="archive-row" data-preview="web_assets/archive_04_mono.jpg">
               <span>2027</span>
-              <span>Kaadhal Kadhai</span>
+              <span>Kadhal Kadhai</span>
               <span>Will be Available Soon</span>
               <div class="archive-thumb">
                 <img src="web_assets/archive_04_thumb.png" alt="Mono">
               </div>
             </div>
-            <div class="archive-row" data-preview="web_assets/archive_05_circa.jpg">
-              <span>2027</span>
-              <span>Together</span>
-              <span>Will be Available Soon</span>
-              <div class="archive-thumb">
-                <img src="web_assets/archive_05_thumb.jpg" alt="Circa">
-              </div>
-            </div>
           </div>
-        </div>
-        </div>
       </section>
 
       <section class="cinematic section">
@@ -1123,8 +1086,12 @@ gtag('config', 'G-2M6V79H761');
         : null;
       if (lenis) {
         lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(t => lenis.raf(t * 1000));
-        gsap.ticker.lagSmoothing(0);
+        function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}
       }
 
       function animateCounter(el) {
