@@ -342,7 +342,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;ba
 .nav a{padding:8px 13px;border-radius:999px;transition:.25s}
 .nav a:hover{background:#fff;color:#111}
 .header-cta{border-radius:999px;background:#fff;color:#111;border:0;padding:11px 15px;transition:.25s}
-.header-cta:hover{transform:translateY(-2px);background:rgb(255, 30, 255);}
+.header-cta:hover{transform:translateY(-2px);background:var(--acid);}
 .cinematic-cta:hover{transform:translateY(-2px);background:var(--acid)}
 .form-submit:hover{transform:translateY(-2px);background:var(--acid);color:#000;border-color:var(--acid)}
 .hero{min-height:110svh}
@@ -511,7 +511,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;ba
   linear-gradient(180deg,#080808 0%,#131313 55%,#080808 100%)}
 .hero-bg:before{content:""; position:absolute; left:-20%; right:-20%; top:46%; height:2px;
   background:linear-gradient(90deg,transparent,rgba(215,255,69,.0) 20%,rgba(255,255,255,.85) 50%,rgba(215,255,69,0) 80%,transparent);
-  box-shadow:0 0 40px 8px rgba(215,255,69,.25), 0 0 120px 30px rgba(255,255,255,.06);
+  box-shadow:0 0 40px 8px rgba(200, 255, 0, 0.284), 0 0 120px 30px rgba(255,255,255,.06);
   animation:streak 9s ease-in-out infinite alternate}
 .hero-bg:after{content:""; position:absolute; inset:0; opacity:.5;
   background:repeating-linear-gradient(90deg,transparent 0 calc(8.333% - 1px),rgba(255,255,255,.05) calc(8.333% - 1px) 8.333%)}
@@ -731,6 +731,13 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;ba
   .site-header .header-cta{padding:9px 10px;font-size:8.5px;letter-spacing:.04em}
   .logo{font-size:13px}
 }
+        /* ---- Hope countdown ---- */
+.countdown{display:flex;gap:10px;margin:0 0 30px}
+.countdown div{min-width:78px;padding:14px 12px 12px;text-align:center;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.03)}
+.countdown b{display:block;font:600 clamp(28px,4vw,48px)/1 "Space Grotesk",sans-serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.countdown small{display:block;margin-top:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#999}
+.release-banner.is-live .countdown{display:none}
+@media(max-width:640px){.countdown{gap:8px}.countdown div{flex:1;min-width:0;padding:12px 6px 10px}}
 </style>
 <script src="https://cdn.tailwindcss.com"></script><!-- aura-ga4-start -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-2M6V79H761"></script>
@@ -935,9 +942,9 @@ gtag('config', 'G-2M6V79H761');
             </div>
             <div class="project-media hover-media">
               <img src="web_assets/project_03_hope.webp" alt="Hope" class="h-full w-full object-cover">
-              <a class="watch-btn" href="https://rzp.io/rzp/hopepremiere" target="_blank" rel="noopener">
-                <span class="ico">▶</span><span>Watch Film</span>
-              </a>
+             <a class="watch-btn soon" data-hope data-after="Watch Film" href="https://rzp.io/rzp/hopepremiere" target="_blank" rel="noopener">
+  <span class="ico" data-hope-ico>◷</span><span data-hope-label>Releasing Tomorrow</span>
+</a>
             </div>
             <div class="project-side">
               03 / 04
@@ -980,16 +987,24 @@ gtag('config', 'G-2M6V79H761');
       <section class="release-banner dark">
         <div class="container release-inner">
           <div class="release-poster">
-            <img src="web_assets/project_03_hope.webp" alt="Hope — new short film">
+            <img src="web_assets/project_04_hope.webp" alt="Hope — new short film">
           </div>
-          <div class="release-copy">
-            <span class="release-tag"><i></i> New Release · Out Now</span>
-            <h2 class="display">Hope</h2>
-            <p>The latest short film from Sabarinath: a romantic drama about the quiet moments that keep us going. Now streaming on YouTube.</p>
-            <a class="watch-btn static" href="https://rzp.io/rzp/hopepremiere" target="_blank" rel="noopener">
-              <span class="ico">▶</span><span>Watch Hope</span>
-            </a>
-          </div>
+         <div class="release-copy">
+  <span class="release-tag"><i></i> <span id="hopeTag">Releasing Tomorrow · 9:00 AM IST</span></span>
+  <h2 class="display">Hope</h2>
+  <p id="hopeText">The latest short film from Sabarinath: a romantic drama about the quiet moments that keep us going. Premieres tomorrow at 9:00 AM IST.</p>
+
+  <div class="countdown" role="timer" aria-label="Time until Hope releases">
+    <div><b data-cd="d">00</b><small>Days</small></div>
+    <div><b data-cd="h">00</b><small>Hours</small></div>
+    <div><b data-cd="m">00</b><small>Minutes</small></div>
+    <div><b data-cd="s">00</b><small>Seconds</small></div>
+  </div>
+
+  <a class="watch-btn static soon" data-hope data-after="Watch Hope" href="https://rzp.io/rzp/hopepremiere" target="_blank" rel="noopener">
+    <span class="ico" data-hope-ico>▶</span><span data-hope-label>Releasing Tomorrow</span>
+  </a>
+</div>
         </div>
       </section>
 
@@ -1315,22 +1330,22 @@ gtag('config', 'G-2M6V79H761');
 
   <!-- NEW: "Releasing Soon" popup -->
   <div class="soon-modal" id="soonModal" aria-hidden="true">
-    <div class="soon-box">
-      <small>Coming Soon</small>
-      <h3 id="soonTitle">Releasing Soon</h3>
-      <p>This film is still in the making. Follow along for the release date and updates.</p>
-      <button type="button" id="soonClose">Close</button>
-    </div>
+            <div class="soon-box">
+          <small id="soonKicker">Coming Soon</small>
+          <h3 id="soonTitle">Releasing Soon</h3>
+          <p id="soonText">This film is still in the making. Follow along for the release date and updates.</p>
+          <button type="button" id="soonClose">Close</button>
+        </div>
   </div>
 
   <!-- NEW: floating "Hope" release pill -->
-  <div class="release-pill" id="releasePill">
-    <i></i>
-    <a href="https://rzp.io/rzp/hopepremiere" target="_blank" rel="noopener">
-      <span>New: <b>Hope</b> is out now</span><em>Watch ↗</em>
-    </a>
-    <button type="button" aria-label="Dismiss" id="pillClose">×</button>
-  </div>
+ <div class="release-pill" id="releasePill">
+  <i></i>
+  <a data-hope href="https://rzp.io/rzp/hopepremiere" target="_blank" rel="noopener">
+    <span id="pillText">Hope releases <b>tomorrow</b> · 9 AM</span><em id="pillCta">Details ↗</em>
+  </a>
+  <button type="button" aria-label="Dismiss" id="pillClose">×</button>
+</div>
 
 
   <!-- NEW: mobile side menu -->
@@ -1696,6 +1711,10 @@ gtag('config', 'G-2M6V79H761');
 <!-- NEW: hero timecode, "Releasing Soon" popup, and release pill dismiss -->
 <script>
 (function(){
+  /* ===== CONFIG: Hope release time (7:00 AM IST, Sat 21 Nov 2026) ===== */
+  var RELEASE = new Date('2026-11-21T09:00:00+05:30').getTime();
+  var HOPE_TEXT_LIVE = 'The latest short film from Sabarinath: a romantic drama about the quiet moments that keep us going. Now streaming on YouTube.';
+
   /* Hero timecode */
   var tc=document.getElementById('heroTc');
   if(tc){
@@ -1706,18 +1725,25 @@ gtag('config', 'G-2M6V79H761');
     },42);
   }
 
-  /* Releasing Soon popup */
+  /* Popup (shared by Kadhal Kadhai + Hope) */
   var modal=document.getElementById('soonModal');
+  var kicker=document.getElementById('soonKicker');
   var title=document.getElementById('soonTitle');
+  var text=document.getElementById('soonText');
+  var DEFAULT_TEXT=text.textContent;
+
+  function openModal(k,t,p){
+    kicker.textContent=k; title.textContent=t; text.textContent=p;
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+  }
+  function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');}
+
   document.querySelectorAll('[data-soon]').forEach(function(b){
     b.addEventListener('click',function(e){
       e.stopPropagation();
-      title.textContent=b.dataset.soon+' — Releasing Soon';
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
+      openModal('Coming Soon', b.dataset.soon+' — Releasing Soon', DEFAULT_TEXT);
     });
   });
-  function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');}
   document.getElementById('soonClose').addEventListener('click',closeModal);
   modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
   addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
@@ -1725,6 +1751,82 @@ gtag('config', 'G-2M6V79H761');
   /* Dismiss release pill */
   var pill=document.getElementById('releasePill');
   document.getElementById('pillClose').addEventListener('click',function(){pill.classList.add('hide');});
+
+  /* ===== HOPE: countdown + auto-unlock ===== */
+  var banner=document.querySelector('.release-banner');
+  var hopeBtns=document.querySelectorAll('[data-hope]');
+  var hopeTag=document.getElementById('hopeTag');
+  var hopeText=document.getElementById('hopeText');
+  var pillText=document.getElementById('pillText');
+  var pillCta=document.getElementById('pillCta');
+  var cd={};
+  document.querySelectorAll('[data-cd]').forEach(function(el){cd[el.dataset.cd]=el;});
+  var released=false, lastWord='', timer=null;
+  function pad(n){return String(n).padStart(2,'0');}
+
+  function dayWord(){
+    var f=function(ms){return new Date(ms).toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});};
+    return f(Date.now())===f(RELEASE)?'Today':'Tomorrow';
+  }
+
+  function setWaiting(w){
+    var lw=w.toLowerCase();
+    hopeBtns.forEach(function(b){
+      b.classList.add('soon');
+      var ico=b.querySelector('[data-hope-ico]'), lab=b.querySelector('[data-hope-label]');
+      if(ico) ico.textContent='◷';
+      if(lab) lab.textContent='Releasing '+w;
+    });
+    if(hopeTag) hopeTag.textContent='Releasing '+w+' · 9:00 AM IST';
+    if(hopeText) hopeText.textContent='The latest short film from Sabarinath: a romantic drama about the quiet moments that keep us going. Premieres '+lw+' at 9:00 AM IST.';
+    if(pillText) pillText.innerHTML='Hope releases <b>'+lw+'</b> · 9 AM';
+    if(pillCta) pillCta.textContent='Details ↗';
+  }
+
+  function goLive(){
+    if(released) return;
+    released=true; clearInterval(timer);
+    ['d','h','m','s'].forEach(function(k){if(cd[k]) cd[k].textContent='00';});
+    if(banner) banner.classList.add('is-live');
+    hopeBtns.forEach(function(b){
+      b.classList.remove('soon');
+      var ico=b.querySelector('[data-hope-ico]'), lab=b.querySelector('[data-hope-label]');
+      if(ico) ico.textContent='▶';
+      if(lab && b.dataset.after) lab.textContent=b.dataset.after;
+    });
+    if(hopeTag) hopeTag.textContent='New Release · Out Now';
+    if(hopeText) hopeText.textContent=HOPE_TEXT_LIVE;
+    if(pillText) pillText.innerHTML='New: <b>Hope</b> is out now';
+    if(pillCta) pillCta.textContent='Watch ↗';
+    if(modal.classList.contains('open')) closeModal();
+  }
+
+  function tick(){
+    var diff=RELEASE-Date.now();
+    if(diff<=0){goLive();return;}
+    var s=Math.floor(diff/1000);
+    if(cd.d) cd.d.textContent=pad(Math.floor(s/86400));
+    if(cd.h) cd.h.textContent=pad(Math.floor(s%86400/3600));
+    if(cd.m) cd.m.textContent=pad(Math.floor(s%3600/60));
+    if(cd.s) cd.s.textContent=pad(s%60);
+    var w=dayWord();
+    if(w!==lastWord){lastWord=w;setWaiting(w);}
+  }
+
+  /* Before release: any Hope button shows the popup instead of the link */
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('[data-hope]');
+    if(!a||released) return;
+    if(Date.now()>=RELEASE){goLive();return;}   // released while tab was idle: let the link open
+    e.preventDefault();
+    var w=dayWord();
+    openModal('Coming Soon','Hope — Releasing '+w,
+      'Hope premieres '+w.toLowerCase()+' at 9:00 AM IST. The Watch button will go live automatically.');
+  });
+
+  tick();
+  timer=setInterval(tick,1000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden) tick();});
 })();
 </script>
 
